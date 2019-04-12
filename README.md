@@ -27,4 +27,5 @@ To override the configuration inside the docker container, map it to `/app/confi
             },
             mapDataTopic: "valetudo/rockrobo/map_data"
         }
+}
 ```
