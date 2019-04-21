@@ -13,19 +13,27 @@ To override the configuration inside the docker container, map it to `/app/confi
 ```
 {
         "mqtt" : {
-            enabled: false,
-            identifier: "rockrobo",
-            topicPrefix: "valetudo",
-            autoconfPrefix: "homeassistant",
-            broker_url: "mqtt://user:pass@foobar.example",
-            mapSettings: {
-                drawPath: true,
-                drawCharger: true,
-                drawRobot: true,
-                border: 2,
-                scale: 4
+            "identifier": "rockrobo",
+            "topicPrefix": "valetudo",
+            "autoconfPrefix": "homeassistant",
+            "broker_url": "mqtt://user:pass@foobar.example",
+            "mapSettings": {
+                "drawPath": true,
+                "drawCharger": true,
+                "drawRobot": true,
+                "border": 2,
+                "scale": 4
             },
-            mapDataTopic: "valetudo/rockrobo/map_data"
+            "mapDataTopic": "valetudo/rockrobo/map_data",
+            "minMillisecondsBetweenMapUpdates": 10000,
+            "publishMapImage": true
+        },
+        "webserver": {
+            "enabled": false,
+            "port": 3000
         }
 }
 ```
+
+### FHEM, ioBroker, etc
+If you set `webserver.enabled` to `true`, the map PNG will be available at `http://host:port/api/map/image`
