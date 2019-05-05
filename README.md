@@ -17,6 +17,7 @@ To override the configuration inside the docker container, map it to `/app/confi
             "topicPrefix": "valetudo",
             "autoconfPrefix": "homeassistant",
             "broker_url": "mqtt://user:pass@foobar.example",
+            "caPath": "",
             "mapSettings": {
                 "drawPath": true,
                 "drawCharger": true,
