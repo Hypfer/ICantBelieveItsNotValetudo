@@ -38,3 +38,6 @@ To override the configuration inside the docker container, map it to `/app/confi
 
 ### FHEM, ioBroker, etc
 If you set `webserver.enabled` to `true`, the map PNG will be available at `http://host:port/api/map/image`
+
+### public service announcement
+There is no need to edit the setting "map_upload_host" @ /mnt/data/valetudo/config.json on the robot to get ICantBeliveItsNotValetudo working!
