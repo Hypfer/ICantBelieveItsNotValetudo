@@ -1,6 +1,6 @@
 <div align="center">
-    <a href="https://github.com/Hypfer/Valetudo"><img src="https://github.com/Hypfer/Valetudo/blob/master/assets/logo/valetudo_logo_with_name.svg" width="800" alt="valetudo"></a>
-    <p align="center"><h2>I can't belive it's not Valetudo</h2></p>
+    <a href="https://github.com/rand256/valetudo"><img src="https://github.com/rand256/valetudo/blob/testing/assets/logo/valetudo_logo_with_name.svg" width="800" alt="valetudo"></a>
+    <p align="center"><h2>valetudo mapper</h2><h5>ex. <em>I can't belive it's not Valetudo</em></h5></p>
 </div>
 This is a simple companion service for valetudo which does all the heavy lifting.
 
@@ -16,14 +16,21 @@ To override the configuration inside the docker container, map it to `/app/confi
             "identifier": "rockrobo",
             "topicPrefix": "valetudo",
             "autoconfPrefix": "homeassistant",
-            "broker_url": "mqtt://user:pass@foobar.example",
+            "broker_url": "mqtt://user:pass@example.com:port",
             "caPath": "",
             "mapSettings": {
                 "drawPath": true,
                 "drawCharger": true,
                 "drawRobot": true,
+                "drawForbiddenZones": true,
+                "drawVirtualWalls": true,
                 "border": 2,
-                "scale": 4
+                "scale": 4,
+                "gradientBackground": true,
+                "crop_x1": 30,
+                "crop_y1": 70,
+                "crop_x2": 440,
+                "crop_y2": 440
             },
             "mapDataTopic": "valetudo/rockrobo/map_data",
             "minMillisecondsBetweenMapUpdates": 10000,
@@ -35,6 +42,14 @@ To override the configuration inside the docker container, map it to `/app/confi
         }
 }
 ```
+
+Guessed crop values allow to get rid of empty spaces at the edges of the image.
+
+### Map PNG example in HA
+
+![map](https://user-images.githubusercontent.com/30267719/67422498-45d8f480-f5db-11e9-8f23-b1472cfb0962.png)
+
+Static raster image looks worse than browser generated via HTML Canvas but will do when JS is unavailable.
 
 ### FHEM, ioBroker, etc
 If you set `webserver.enabled` to `true`, the map PNG will be available at `http://host:port/api/map/image`
