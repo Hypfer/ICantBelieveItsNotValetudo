@@ -17,6 +17,7 @@ if(conf.get("mqtt")) {
         mapDataTopic: conf.get("mqtt").mapDataTopic,
         minMillisecondsBetweenMapUpdates: conf.get("mqtt").minMillisecondsBetweenMapUpdates,
         publishMapImage: conf.get("mqtt").publishMapImage,
+        publishMapData: conf.get("mqtt").publishMapData,
         webserverEnabled: conf.get("webserver") && conf.get("webserver").enabled === true,
         events: events
     });

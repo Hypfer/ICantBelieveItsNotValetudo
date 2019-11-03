@@ -34,7 +34,8 @@ To override the configuration inside the docker container, map it to `/app/confi
             },
             "mapDataTopic": "valetudo/rockrobo/map_data",
             "minMillisecondsBetweenMapUpdates": 10000,
-            "publishMapImage": true
+            "publishMapImage": true,
+            "publishMapData": false
         },
         "webserver": {
             "enabled": false,
@@ -53,3 +54,7 @@ Static raster image looks worse than browser generated via HTML Canvas but will 
 
 ### FHEM, ioBroker, etc
 If you set `webserver.enabled` to `true`, the map PNG will be available at `http://host:port/api/map/image`
+
+### TheLastProject/lovelace-valetudo-map-card
+To make Valetudo RE compatible with `lovelace-valetudo-map-card` project, enable `publishMapData` option and
+set map sensor source in HA to `topicPrefix/identifier/map_data_parsed` (i.e. `valetudo/rockrobo/map_data_parsed`).
