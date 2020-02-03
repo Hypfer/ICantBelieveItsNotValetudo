@@ -2,7 +2,7 @@
   "name": "i-cant-believe-its-not-valetudo",
   "version": "0.2.0",
   "dependencies": {
-    "jimp": "0.3.2",
+    "jimp": "0.9.3",
     "mqtt": "^2.18.8",
     "compression": "^1.7.2",
     "express": "^4.16.3"
