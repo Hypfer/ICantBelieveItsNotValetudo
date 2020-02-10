@@ -33,18 +33,18 @@ A basic example configuration would look like this:
 
 ```json
 {
+    "mapSettings": {
+        "drawPath": true,
+        "drawCharger": true,
+        "drawRobot": true,
+        "scale": 4
+    },
     "mqtt" : {
         "identifier": "rockrobo",
         "topicPrefix": "valetudo",
         "autoconfPrefix": "homeassistant",
         "broker_url": "mqtt://user:pass@foobar.example",
         "caPath": "",
-        "mapSettings": {
-            "drawPath": true,
-            "drawCharger": true,
-            "drawRobot": true,
-            "scale": 4
-        },
         "mapDataTopic": "valetudo/rockrobo/map_data",
         "minMillisecondsBetweenMapUpdates": 10000,
         "publishMapImage": true
@@ -64,7 +64,7 @@ By default, the image data is published via MQTT to the topic set in
 `mqtt.mapDataTopic`.
 
 ## Advanced Map Configuration
-The appearance of the map is configured by the `mqtt.mapSettings`
+The appearance of the map is configured by the `mapSettings`
 object. The default settings already produce a nice map, but you can 
 use these advanced settings to further customize the map for better
 integration into your home automation.
@@ -84,13 +84,13 @@ brevity):
 
 ```json
 {
+    "mapSettings": {
+        "crop_x1": 50,
+        "crop_y1": 50,
+        "crop_x2": 250,
+        "crop_y2": 150
+    },
     "mqtt" : {
-        "mapSettings": {
-            "crop_x1": 50,
-            "crop_y1": 50,
-            "crop_x2": 250,
-            "crop_y2": 150
-        },
     },
     "webserver": {
     }
@@ -103,7 +103,7 @@ brevity):
 Since the map data has a resolution of approximately 5 cm per pixel, the
 resulting images have a relatively low resolution. The map is therefore
 scaled up by a factor of 4 by default. The scaling factor can be
-configured by setting `mqtt.mapSettings.scale` to the desired value.
+configured by setting `mapSettings.scale` to the desired value.
 
 To avoid blurred edges, the scaling is done with nearest-neighbor
 interpolation.
@@ -111,20 +111,20 @@ interpolation.
 ### Colors
 The map is rendered using a blueish color map by default. The colors
 of the floor, hard and weak obstacles as well as the robot's path can
-be set via the `mqtt.mapSettings.colors` object, e.g. (other settings
+be set via the `mapSettings.colors` object, e.g. (other settings
 omitted for brevity):
 
 ```json
 {
+    "mapSettings": {
+        "colors": {
+            "floor": "transparent",
+            "obstacle_weak": "rgba(0,0,0,0.1)",
+            "obstacle_strong": "hsl(120, 20%, 50%)",
+            "path": "#333333"
+        }
+    },
     "mqtt" : {
-        "mapSettings": {
-            "colors": {
-                "floor": "transparent",
-                "obstacle_weak": "rgba(0,0,0,0.1)",
-                "obstacle_strong": "hsl(120, 20%, 50%)",
-                "path": "#333333"
-            }
-        },
     },
     "webserver": {
     }
@@ -145,13 +145,13 @@ for brevity):
 
 ```json
 {
+    "mapSettings": {
+        "underlay_path": "/absolute/path/to/background_image.png",
+        "underlay_scale": 1,
+        "underlay_x": 0,
+        "underlay_y": 0
+    },
     "mqtt" : {
-        "mapSettings": {
-            "underlay_path": "/absolute/path/to/background_image.png",
-            "underlay_scale": 1,
-            "underlay_x": 0,
-            "underlay_y": 0
-        },
     },
     "webserver": {
     }
@@ -162,13 +162,13 @@ And, similarly for a overlay image (other settings omitted for brevity):
 
 ```json
 {
+    "mapSettings": {
+        "overlay_path": "/absolute/path/to/overlay_image.png",
+        "overlay_scale": 1,
+        "overlay_x": 0,
+        "overlay_y": 0
+    },
     "mqtt" : {
-        "mapSettings": {
-            "overlay_path": "/absolute/path/to/overlay_image.png",
-            "overlay_scale": 1,
-            "overlay_x": 0,
-            "overlay_y": 0
-        },
     },
     "webserver": {
     }
