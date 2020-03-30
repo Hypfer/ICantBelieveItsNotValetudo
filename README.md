@@ -27,10 +27,7 @@ To override the configuration inside the docker container, map it to `/app/confi
                 "border": 2,
                 "scale": 4,
                 "gradientBackground": true,
-                "crop_x1": 30,
-                "crop_y1": 70,
-                "crop_x2": 440,
-                "crop_y2": 440
+                "autoCrop": 20
             },
             "mapDataTopic": "valetudo/rockrobo/map_data",
             "minMillisecondsBetweenMapUpdates": 10000,
