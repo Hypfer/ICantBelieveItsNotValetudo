@@ -22,6 +22,8 @@ To override the configuration inside the docker container, map it to `/app/confi
                 "drawPath": true,
                 "drawCharger": true,
                 "drawRobot": true,
+                "drawCurrentlyCleanedZones": false,
+                "drawCurrentlyCleanedBlocks": false,
                 "drawForbiddenZones": true,
                 "drawVirtualWalls": true,
                 "border": 2,
