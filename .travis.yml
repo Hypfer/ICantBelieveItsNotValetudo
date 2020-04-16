@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - lts/*
+dist: trusty
+sudo: true
+
+jobs:
+  include:
+    - stage: deploy
+      node_js: "12"
+      script: "./.travis/deploy.sh"
+      if: type != pull_request AND (branch IN (dev, master) OR tag IS present)
+      addons:
+        apt:
+          sources:
+            - sourceline: deb https://download.docker.com/linux/ubuntu/ xenial stable
+              key_url: https://download.docker.com/linux/ubuntu/gpg
+          packages:
+            - docker-ce
+            - docker-ce-cli
+            - containerd.io
