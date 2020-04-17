@@ -63,9 +63,17 @@ if __name__ == "__main__":
 	parser.add_argument("name", help="mqtt id (ie: valetudo identifier)")
 	parser.add_argument("-o", "--output", help="output image file", default="map.png")
 	parser.add_argument("-t", "--topic", help="topicPrefix", default="valetudo")
+	parser.add_argument("-p", "--password", help="MQTT password")
+	parser.add_argument("-u", "--user", help="MQTT username")
 	args = parser.parse_args()
+	
+	auth = None
+	if args.user:
+		auth = {"username": args.user}
+		if args.password:
+			auth["password"] = args.password
 
-	message = subscribe.simple("%s/%s/map_data" % (args.topic, args.name), hostname=args.host)
+	message = subscribe.simple("%s/%s/map_data" % (args.topic, args.name), hostname=args.host, auth=auth)
 	data = json.JSONDecoder().decode(message.payload.decode("utf-8"))
 
 	img = json2img (data)
