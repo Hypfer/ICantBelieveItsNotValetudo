@@ -1,9 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import division
+import json, argparse, os
 
 from PIL import Image, ImageDraw
 import paho.mqtt.subscribe as subscribe
-import json, argparse, os
 
 def json2img (data):
 	"""
@@ -33,19 +34,19 @@ def json2img (data):
 
 	# draw path
 	draw = ImageDraw.Draw(resized)
-	draw.line([ ((x/50-left)*4,(y/50-top)*4) for x,y in data['path']["points"] ], fill=(255,255,255))
+	draw.line([ ((x//50-left)*4,(y//50-top)*4) for x,y in data['path']["points"] ], fill=(255,255,255))
 	del draw
 
 	# add charger & vacuum
 	path = os.path.dirname(os.path.realpath(__file__))
-	if data.has_key("charger"):
+	if "charger" in data:
 		with Image.open("%s/img/charger.png"%(path)).convert('RGBA') as charger:
-			x = (data['charger'][0] / 50 - left) * 4
-			y = (data['charger'][1] / 50 - top) * 4
+			x = (data['charger'][0] // 50 - left) * 4
+			y = (data['charger'][1] // 50 - top) * 4
 			resized.paste ( charger, (x,y), charger )
 	with Image.open("%s/img/robot.png"%(path)).convert('RGBA') as robot:
-		x = (data['robot'][0] / 50 - left) * 4
-		y = (data['robot'][1] / 50 - top) * 4
+		x = (data['robot'][0] // 50 - left) * 4
+		y = (data['robot'][1] // 50 - top) * 4
 		resized.paste ( robot.rotate (-data['path']['current_angle']-90), (x,y), robot )
 
 	# crop to the map only
@@ -65,7 +66,7 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	message = subscribe.simple("%s/%s/map_data" % (args.topic, args.name), hostname=args.host)
-	data = json.JSONDecoder().decode(message.payload)
+	data = json.JSONDecoder().decode(message.payload.decode("utf-8"))
 
 	img = json2img (data)
 	img.save(args.output)
