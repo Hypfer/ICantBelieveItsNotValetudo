@@ -13,7 +13,7 @@ if(conf.get("mqtt")) {
         identifier: conf.get("mqtt").identifier,
         topicPrefix: conf.get("mqtt").topicPrefix,
         autoconfPrefix: conf.get("mqtt").autoconfPrefix,
-        mapSettings: conf.get("mqtt").mapSettings,
+        mapSettings: conf.get("mapSettings"),
         mapDataTopic: conf.get("mqtt").mapDataTopic,
         minMillisecondsBetweenMapUpdates: conf.get("mqtt").minMillisecondsBetweenMapUpdates,
         publishMapImage: conf.get("mqtt").publishMapImage,
