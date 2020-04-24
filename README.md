@@ -6,7 +6,7 @@ This is a simple companion service for valetudo which does all the heavy lifting
 
 Since both CPU and Memory are limited on the robot, PNG generation for third-party components has been moved here.
 
-Just run this via `npm start` on a host with enough resources. There's also a dockerfile.
+Just run this via `npm start` on a host with enough resources. There's also a dockerfile and automated builds available on [Docker Hub](https://hub.docker.com/r/rand256/valetudo-mapper).
 
 To override the configuration inside the docker container, map it to `/app/config.json`. It looks like this:
 
@@ -25,16 +25,16 @@ To override the configuration inside the docker container, map it to `/app/confi
         },
         "mapSettings": {
             "colors": {
-                background: "#33a1f5",
-                background2: "#046cd4",
-                floor: "#56affc",
-                obstacle_strong: "#a1dbff",
-                path: "white",
-                forbidden_marker: "red",
-                forbidden_zone: "rgba(255, 0, 0, 0.38)",
-                cleaned_marker: "rgba(53, 125, 46, 1.0)",
-                cleaned_zone: "rgba(107, 244, 66, 0.3)",
-                cleaned_block: "rgba(107, 244, 36, 0.34)"
+                "background": "#33a1f5",
+                "background2": "#046cd4",
+                "floor": "#56affc",
+                "obstacle_strong": "#a1dbff",
+                "path": "white",
+                "forbidden_marker": "red",
+                "forbidden_zone": "rgba(255, 0, 0, 0.38)",
+                "cleaned_marker": "rgba(53, 125, 46, 1.0)",
+                "cleaned_zone": "rgba(107, 244, 66, 0.3)",
+                "cleaned_block": "rgba(107, 244, 36, 0.34)"
             },
             "drawPath": true,
             "drawCharger": true,
@@ -43,7 +43,6 @@ To override the configuration inside the docker container, map it to `/app/confi
             "drawCurrentlyCleanedBlocks": false,
             "drawForbiddenZones": true,
             "drawVirtualWalls": true,
-            "border": 2,
             "scale": 4,
             "gradientBackground": true,
             "autoCrop": 20,
@@ -59,7 +58,7 @@ To override the configuration inside the docker container, map it to `/app/confi
 }
 ```
 
-Guessed crop values allow to get rid of empty spaces at the edges of the image.
+Most options are self-explanatory. Autocrop allows to get rid of empty spaces at the edges of the image, its value determines how much pixels to keep at the border. Specifying manual crop values you can cut out mirrored artifacts outside of the actual rooms on the map.
 
 ### Map PNG example in HA
 
