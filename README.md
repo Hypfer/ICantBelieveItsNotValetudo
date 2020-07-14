@@ -13,6 +13,10 @@ third-party components has been moved here. The service receives raw map
 data from the robot via MQTT, renders a map and publishes the resulting
 PNG image via MQTT and/or makes it available via a built-in web server.
 
+Since I have no use for this service, this is only maintained on a very basic level.
+
+Feel free to open PRs with improvements.
+
 ## Installation
 
 *I can't belive it's not Valetudo* is built with JavaScript and requires
@@ -72,8 +76,9 @@ integration into your home automation.
 ### Cropping
 The map data received from the robot may contain lots of empty pixels
 surrounding the area of interest.
-To avoid huge margins in the output image, the raw data can be cropped
-to an arbitrary region.
+To avoid huge margins in the output image, the raw data is auto-cropped.
+
+If you don't want that you can either disable it with `autoCrop: false` or define a custom crop region:
 
 The crop region is defined by the top left corner (`crop_x1` and
 `crop_y1`) and the bottom right corner (`crop_x2` and `crop_y2`)
@@ -96,8 +101,6 @@ brevity):
     }
 }
 ```
-
-**Note:** The crop is applied before *scaling* the map (see below).
 
 ### Scaling
 Since the map data has a resolution of approximately 5 cm per pixel, the
@@ -134,6 +137,8 @@ omitted for brevity):
 All valid
 [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
 are accepted.
+
+**Note: It's currently not possible to specify colours for new Valetudo Maps. If you need that feature, feel free to open a PR**
 
 ### Overlay and Underlay Images
 The map can be further customized by adding overlay and underlay images.
@@ -180,5 +185,4 @@ before you find a good match between a floor plan and the map generated
 by the robot.
 
 **Note:** Overlay and underlay images are applied *after* rendering and
-scaling the map data. In contrast to the crop settings, scaling and
-positioning options here are in output image units.
+scaling the map data.
