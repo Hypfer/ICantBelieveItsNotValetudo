@@ -141,7 +141,25 @@ All valid
 [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
 are accepted.
 
-**Note: It's currently not possible to specify colours for new Valetudo Maps. If you need that feature, feel free to open a PR**
+#### New Map Colors
+You can now set colors for the new Valetudo Maps too - however - only hex values are supported. If you need to set the opacity you can do so using [8 digit hex code](https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4).
+Since new Valetudo maps are using segments, new field in config has been added (other settings omitted for brevity):
+```json
+{
+    "mapSettings": {
+        "colors": {
+            "floor": "#0000FF",
+            "obstacle_strong": "#33333380",
+            "segments": ["#000000", "FF0000", "00FF00", "0000FF"],
+            "path": "#FFFFFF"
+        }
+    },
+    "mqtt" : {
+    },
+    "webserver": {
+    }
+}
+``` 
 
 ### Overlay and Underlay Images
 The map can be further customized by adding overlay and underlay images.

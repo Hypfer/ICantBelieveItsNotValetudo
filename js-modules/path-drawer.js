@@ -20,7 +20,7 @@ img_charger.src = charger;
  *
  * @constructor
  */
-module.exports = function PathDrawer() {
+module.exports = function PathDrawer(pathColor) {
     let path = { current_angle: 0, points: [] };
     let predictedPath = undefined;
     let robotPosition = {
@@ -126,8 +126,6 @@ module.exports = function PathDrawer() {
      * Externally called function to (re)draw the path to the canvas
      */
     function draw() {
-        const pathColor = "#ffffff";
-
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
