@@ -111,6 +111,9 @@ configured by setting `mapSettings.scale` to the desired value.
 To avoid blurred edges, the scaling is done with nearest-neighbor
 interpolation.
 
+### Rotating
+Rotating the map can be achieved by setting the `mapSettings.rotate` to the desired value.
+
 ### Colors
 The map is rendered using a blueish color map by default. The colors
 of the floor, hard and weak obstacles as well as the robot's path can
