@@ -7,16 +7,18 @@ const canvas = require('canvas');
  * It's not displayed directly but used to easily paint the map image onto another canvas.
  * @constructor
  */
-module.exports = function MapDrawer() {
+module.exports = function MapDrawer(colors) {
     const mapCanvas = canvas.createCanvas(1024, 1024);
     const mapCtx = mapCanvas.getContext("2d");
 
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.trim());
+    function hexToRgba(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex.trim());
+
         return result ? {
             r: parseInt(result[1], 16),
             g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
+            b: parseInt(result[3], 16),
+            a: result[4] ? parseInt(result[4], 16) : 255
         } : null;
     }
 
@@ -25,15 +27,10 @@ module.exports = function MapDrawer() {
      * @param {Array<object>} layers - the data containing the map image (array of pixel offsets)
      */
     function draw(layers) {
-        const freeColor = hexToRgb("#0076ff");
-        const occupiedColor = hexToRgb("#333333");
-        const segmentColors = [
-            "#19A1A1",
-            "#7AC037",
-            "#DF5618",
-            "#F7C841"
-        ].map(function (e) {
-            return hexToRgb(e);
+        const freeColor = hexToRgba(colors.floor);
+        const occupiedColor = hexToRgba(colors.obstacle_strong);
+        const segmentColors = colors.segments.map(function (e) {
+            return hexToRgba(e);
         });
 
         mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
@@ -42,7 +39,6 @@ module.exports = function MapDrawer() {
         if (layers && layers.length > 0) {
             layers.forEach(layer => {
                 var color;
-                var alpha = 255;
 
                 switch (layer.type) {
                     case "floor":
@@ -59,11 +55,11 @@ module.exports = function MapDrawer() {
 
                 if (!color) {
                     console.error("Missing color for " + layer.type);
-                    color = {r: 0, g: 0, b: 0};
+                    color = {r: 0, g: 0, b: 0, a: 255};
                 }
 
                 for (let i = 0; i < layer.pixels.length; i = i + 2) {
-                    drawPixel(imgData, mapCanvas, layer.pixels[i], layer.pixels[i+1], color.r, color.g, color.b, alpha);
+                    drawPixel(imgData, mapCanvas, layer.pixels[i], layer.pixels[i+1], color.r, color.g, color.b, color.a);
                 }
             });
         }
