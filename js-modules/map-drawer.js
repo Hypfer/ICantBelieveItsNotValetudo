@@ -1,18 +1,14 @@
-const canvas = require('canvas');
+const { createCanvas, createImageData, loadImage } = require('canvas');
 
 /**
- *
- *
  * Object for drawing the map itself onto a 1024 * 1024 canvas.
  * It's not displayed directly but used to easily paint the map image onto another canvas.
  * @constructor
  */
 module.exports = function MapDrawer(colors) {
-    const mapCanvas = canvas.createCanvas(1024, 1024);
-    const mapCtx = mapCanvas.getContext("2d");
 
     function hexToRgba(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex.trim());
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex.trim());
 
         return result ? {
             r: parseInt(result[1], 16),
@@ -25,20 +21,26 @@ module.exports = function MapDrawer(colors) {
     /**
      *
      * @param {Array<object>} layers - the data containing the map image (array of pixel offsets)
+     * @param {Number} scale
      */
-    function draw(layers) {
+    function draw(layers, scale) {
+        const canvasWidth = Math.max.apply(undefined, layers.flatMap(l => l.pixels.filter((_, index) => index % 2 === 0))) + 1
+        const canvasHeight = Math.max.apply(undefined, layers.flatMap(l => l.pixels.filter((_, index) => index % 2 === 1))) + 1
+
+        const mapCanvas = createCanvas(canvasWidth * scale, canvasHeight * scale);
+        const mapCtx = mapCanvas.getContext("2d");
+
         const freeColor = hexToRgba(colors.floor);
         const occupiedColor = hexToRgba(colors.obstacle_strong);
-        const segmentColors = colors.segments.map(function (e) {
-            return hexToRgba(e);
-        });
+        const segmentColors = colors.segments.map(hexToRgba);
 
         mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
-        const imgData = mapCtx.createImageData(mapCanvas.width, mapCanvas.height);
+        const imgData = mapCtx.createImageData(mapCanvas.width * scale, mapCanvas.height * scale);
 
         if (layers && layers.length > 0) {
+            mapCtx.scale(scale, scale)
             layers.forEach(layer => {
-                var color;
+                let color;
 
                 switch (layer.type) {
                     case "floor":
@@ -52,32 +54,49 @@ module.exports = function MapDrawer(colors) {
                         break;
                 }
 
-
                 if (!color) {
                     console.error("Missing color for " + layer.type);
                     color = {r: 0, g: 0, b: 0, a: 255};
                 }
 
                 for (let i = 0; i < layer.pixels.length; i = i + 2) {
-                    drawPixel(imgData, mapCanvas, layer.pixels[i], layer.pixels[i+1], color.r, color.g, color.b, color.a);
+                    drawPixel(imgData, scale, mapCanvas.width, layer.pixels[i], layer.pixels[i + 1], color.r, color.g, color.b, color.a);
                 }
             });
         }
 
         mapCtx.putImageData(imgData, 0, 0);
+
+        return mapCanvas
     }
 
-    function drawPixel(imgData, mapCanvas, x, y, r, g, b, a) {
-        const imgDataOffset = (x + y * mapCanvas.width) * 4;
+    /**
+     * @param {ImageData} imgData
+     * @param {Number} scale
+     * @param {Number} mapCanvasWidth
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} r
+     * @param {Number} g
+     * @param {Number} b
+     * @param {Number} a
+     */
+    function drawPixel(imgData, scale, mapCanvasWidth, x, y, r, g, b, a) {
+        for (let yi = 0; yi < scale; yi++) {
+            let yDelta = (y * scale + yi) * scale * mapCanvasWidth;
+            for (let xi = 0; xi < scale; xi++) {
+                let xDelta = x * scale + xi;
+                let imgDataOffset = (xDelta + yDelta) * 4;
 
-        imgData.data[imgDataOffset] = r;
-        imgData.data[imgDataOffset + 1] = g;
-        imgData.data[imgDataOffset + 2] = b;
-        imgData.data[imgDataOffset + 3] = a;
+                imgData.data[imgDataOffset] = r;
+                imgData.data[imgDataOffset + 1] = g;
+                imgData.data[imgDataOffset + 2] = b;
+                imgData.data[imgDataOffset + 3] = a;
+            }
+        }
     }
 
     return {
-        draw: draw,
-        canvas: mapCanvas
+        draw: draw
     };
 }

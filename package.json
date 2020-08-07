@@ -9,7 +9,17 @@
     "jimp": "0.9.3",
     "mqtt": "^2.18.8"
   },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "nodemon": "^2.0.4",
+    "mocha": "^8.1.1"
+  },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "watch": "nodemon app.js",
+    "test": "mocha"
+  },
+  "mocha": {
+    "color": true
   }
 }

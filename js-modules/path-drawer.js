@@ -21,61 +21,24 @@ img_charger.src = charger;
  * @constructor
  */
 module.exports = function PathDrawer(pathColor) {
-    let path = { current_angle: 0, points: [] };
-    let predictedPath = undefined;
-    let robotPosition = {
-        points: [2560, 2560],
-        metaData: {
-            angle: 0
-        }
-    };
-    let chargerPosition = [2560, 2560];
-    const canvas = Canvas.createCanvas(1024,1024);
-
-    // Used to draw smoother path when zoomed into the map
-    let scaleFactor = 1;
-    const maxScaleFactor = 6;
 
     /**
-     * Public function for updating the path
-     * @param {Array} newPath
-     * @param newRobotPosition
-     * @param newChargerPosition
+     * @param {Number[]} coords
+     * @param {Number} scaleFactor
+     * @returns {Number[]}
      */
-    function setPath(newPath, newRobotPosition, newChargerPosition, newPredictedPath) {
-        path = newPath;
-        predictedPath = newPredictedPath;
-        robotPosition = newRobotPosition || robotPosition;
-        chargerPosition = newChargerPosition || chargerPosition;
-    }
-
-    /**
-     * Allows to set the scaling factor for the path drawing
-     * The maximum scaling factor is limited in order to improve performance
-     *
-     * @param {number} factor - scaling factor for drawing the path in finer resolution
-     */
-    function scale(factor) {
-        const newScaleFactor = Math.min(factor, maxScaleFactor);
-        if (newScaleFactor === scaleFactor) return;
-
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        scaleFactor = newScaleFactor;
-        canvas.width = canvas.height = scaleFactor * 1024; //TODO
-        draw();
-    }
-
-    function mmToCanvasPx(coords) { //TODO
+    function mmToCanvasPx(coords, scaleFactor) {
         return coords.map(d => Math.floor(d / 5 * scaleFactor));
     }
 
-    function drawCharger(position) {
-        const ctx = canvas.getContext("2d");
+    /**
+     * @param {OffscreenCanvasRenderingContext2D} ctx
+     * @param {number[]} position
+     * @param {number} scaleFactor
+     */
+    function drawCharger(ctx, position, scaleFactor) {
 
-        const chargerPositionInPixels = mmToCanvasPx(position);
-
+        const chargerPositionInPixels = mmToCanvasPx(position, scaleFactor);
         ctx.drawImage(
             img_charger,
             chargerPositionInPixels[0] - img_charger.height / 2,
@@ -83,8 +46,13 @@ module.exports = function PathDrawer(pathColor) {
         );
     }
 
-    function drawRobot(position, angle) {
-        const ctx = canvas.getContext("2d");
+    /**
+     * @param {OffscreenCanvasRenderingContext2D} ctx
+     * @param {number[]} position
+     * @param {number} angle
+     * @param {number} scaleFactor
+     */
+    function drawRobot(ctx, position, angle, scaleFactor) {
         function rotateRobot(img, angle) {
             var canvasimg = Canvas.createCanvas(img.width, img.height);
             var ctximg = canvasimg.getContext("2d");
@@ -96,8 +64,7 @@ module.exports = function PathDrawer(pathColor) {
             return canvasimg;
         }
 
-        const robotPositionInPixels = mmToCanvasPx(position);
-
+        const robotPositionInPixels = mmToCanvasPx(position, scaleFactor);
         ctx.drawImage(
             rotateRobot(img_rocky, angle),
             robotPositionInPixels[0] - img_rocky.width / 2, // x
@@ -107,12 +74,16 @@ module.exports = function PathDrawer(pathColor) {
         );
     }
 
-    function drawLines(points, ctx) {
+    /**
+     * @param {number[]} points
+     * @param {OffscreenCanvasRenderingContext2D | NodeCanvasRenderingContext2D} ctx
+     * @param {number} scaleFactor
+     */
+    function drawLines(points, ctx, scaleFactor) {
         let first = true;
 
         for (let i = 0; i < points.length; i = i+2) {
-            const [x, y] = mmToCanvasPx([points[i], points[i+1]]);
-
+            const [x, y] = mmToCanvasPx([points[i], points[i+1]], scaleFactor);
             if (first) {
                 ctx.moveTo(x, y);
                 first = false;
@@ -124,15 +95,24 @@ module.exports = function PathDrawer(pathColor) {
 
     /**
      * Externally called function to (re)draw the path to the canvas
+     *
+     * @param ctx {OffscreenCanvasRenderingContext2D | NodeCanvasRenderingContext2D}
+     * @param {Number} scaleFactor
+     * @param {Number[]} pathPoints
+     * @param {Number[]} robotPosition
+     * @param {Number} robotAngle
+     * @param {Number[]} chargerPosition
+     * @param {Number[]} predictedPath
+     *
+     * @returns {OffscreenCanvasRenderingContext2D}
      */
-    function draw() {
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function draw(ctx, scaleFactor, pathPoints, robotPosition, robotAngle, chargerPosition, predictedPath) {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = pathColor;
-        drawLines(path.points, ctx);
+        drawLines(pathPoints, ctx, scaleFactor);
         ctx.stroke();
 
         if (predictedPath) {
@@ -140,23 +120,20 @@ module.exports = function PathDrawer(pathColor) {
             ctx.lineWidth = 1;
             ctx.strokeStyle = pathColor;
             ctx.setLineDash([5, 5]);
-            drawLines(predictedPath.points, ctx);
+            drawLines(predictedPath, ctx, scaleFactor);
             ctx.stroke();
             ctx.setLineDash([]);
         }
 
-        drawCharger(chargerPosition);
-        drawRobot(robotPosition.points, robotPosition.metaData.angle);
+        drawCharger(ctx, chargerPosition, scaleFactor);
+        drawRobot(ctx, robotPosition, robotAngle, scaleFactor);
+
+        return ctx
     }
 
-    // noinspection JSDuplicatedDeclaration
     return {
-        setPath: setPath,
-        scale: scale,
-        getScaleFactor: function () {
-            return scaleFactor;
-        },
-        canvas: canvas,
+        // setPath: setPath,
+        // scale: scale,
         draw: draw
     };
 }
