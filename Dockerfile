@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package.json /app
 
-# Build tools for armhf to build canvas
+# Build tools for armhf and arm64 to build canvas
 RUN ARCH=$(dpkg --print-architecture) \ 
-    && if [ "$ARCH" = "armhf" ] ; then \
+    && if [ "$ARCH" = "armhf" ] || [ "$ARCH" = "arm64" ]; then \
     apt-get update && apt-get install -y \
     build-essential \ 
     libcairo2-dev \
