@@ -20,7 +20,7 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v2
         with:
-          string: ${{ DOCKER_IMAGE }}
+          string: ${{ env.DOCKER_IMAGE }}
 
       - name: Docker meta
         id: docker_meta
