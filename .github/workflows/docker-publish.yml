@@ -17,11 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ DOCKER_IMAGE }}
+
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ${{ env.DOCKER_IMAGE }}
+          images: ${{ steps.string.outputs.lowercase }}
           tag-custom: latest
           tag-custom-only: true
 
@@ -52,7 +57,7 @@ jobs:
 
       - name: Check manifest
         run: |
-          docker buildx imagetools inspect ${{ env.DOCKER_IMAGE }}:${{ steps.docker_meta.outputs.version }}
+          docker buildx imagetools inspect ${{ steps.string.outputs.lowercase }}:${{ steps.docker_meta.outputs.version }}
       
       - name: Dump context
         if: always()
