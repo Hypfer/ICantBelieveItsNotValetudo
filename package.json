@@ -4,9 +4,9 @@
   "dependencies": {
     "async": "^3.2.0",
     "canvas": "^2.6.1",
-    "compression": "^1.7.2",
-    "express": "^4.16.3",
-    "jimp": "0.9.3",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "jimp": "0.16.1",
     "mqtt": "^4.2.6"
   },
   "scripts": {
