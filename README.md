@@ -13,22 +13,6 @@ third-party components has been moved here. The service receives raw map
 data from the robot via MQTT, renders a map and publishes the resulting
 PNG image via MQTT.
 
-## Changes from upstream
-
-Compared to [upstream](https://github.com/Hypfer/ICantBelieveItsNotValetudo/), this fork:
-
-* greatly optimizes the algorithm generating the map
-  + On the same hardware, with a scale factor of 2, it can compute the map in *~400ms* versus *~14000ms* (**~35x speedup**).
-* avoids unnecessary computations, caching full maps and map layers
-* supports map compression
-* supports base-64 encoded maps
-* removes support for old binary maps, supporting Valetudo 2021.01.1+ only
-* removes the webserver
-* removes support for overlay/underlay images
-* removes support for manual cropping.
-
-Feel free to open PRs with improvements.
-
 ## Installation
 
 *I can't belive it's not Valetudo* is built with JavaScript and requires
