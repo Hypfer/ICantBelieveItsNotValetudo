@@ -1,10 +1,8 @@
 <div align="center">
-
     <a href="https://github.com/Hypfer/Valetudo">
         <img src="https://github.com/Hypfer/Valetudo/blob/master/assets/logo/valetudo_logo_with_name.svg" width="800" alt="valetudo">
     </a>
     <p align="center"><h2>I can't belive it's not Valetudo</h2></p>
-
 </div>
 
 This is a simple map generation companion service for
