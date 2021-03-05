@@ -3,7 +3,7 @@
   "version": "2021.2.1",
   "dependencies": {
     "async": "^3.2.0",
-    "canvas": "^2.6.1",
+    "canvas": "^2.7.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "mqtt": "^4.2.6"
