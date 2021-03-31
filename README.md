@@ -53,9 +53,21 @@ A basic example configuration would look like this:
         "mapDataTopic": "valetudo/rockrobo/map_data",
         "minMillisecondsBetweenMapUpdates": 10000,
         "publishMapImage": true
+    },
+    "webserver": {
+        "enabled": false,
+        "port": 3000
     }
 }
 ```
+
+## Integration with FHEM, ioBroker, etc
+If you set `webserver.enabled` to `true`, the map PNG will be available
+at `http://host:port/api/map/image` so you can display a map with any
+home automation software that allows fetching images from a URL.
+By default, the image data is published via MQTT to the topic set in
+`mqtt.mapDataTopic`.
+
 
 ## Advanced Map Configuration
 
