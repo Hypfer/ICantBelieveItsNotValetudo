@@ -1,0 +1,29 @@
+{
+  "mapSettings": {
+    "drawPath": true,
+    "drawCharger": true,
+    "drawRobot": true,
+    "scale": 2,
+    "rotate": 0,
+    "colors": {
+      "floor": "#0076ff",
+      "obstacle": "#52aeff",
+      "path": "#ffffff"
+    }
+  },
+  "mqtt": {
+    "identifier": "rockrobo",
+    "topicPrefix": "valetudo",
+    "autoconfPrefix": "homeassistant",
+    "broker_url": "mqtt://user:pass@foobar.example",
+    "caPath": "",
+    "mapDataTopic": "valetudo/rockrobo/map_data",
+    "minMillisecondsBetweenMapUpdates": 10000,
+    "publishMapImage": true
+  },
+  "webserver": {
+    "enabled": false,
+    "port": 3000
+  },
+  "logLevel": "info"
+}

@@ -8,7 +8,30 @@
     "express": "^4.17.1",
     "mqtt": "^4.2.6"
   },
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.0",
+    "@types/express": "^4.17.3",
+    "@types/node": "^13.9.1",
+    "eslint": "^7.22.0",
+    "eslint-plugin-jsdoc": "^30.2.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-regexp": "^0.5.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "eslint-plugin-sort-requires": "^2.1.0",
+    "pre-commit": "^1.2.2",
+    "typescript": "^3.8.3"
+  },
+  "pre-commit": [
+    "ts-check",
+    "lint_fix"
+  ],
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "eslint .",
+    "lint_fix": "eslint . --fix",
+    "ts-check": "tsc -p jsconfig.json"
   }
 }

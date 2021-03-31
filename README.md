@@ -13,8 +13,6 @@ third-party components has been moved here. The service receives raw map
 data from the robot via MQTT, renders a map and publishes the resulting
 PNG image via MQTT.
 
-Since I have no use for this service, this is only maintained on a very basic level.
-
 Feel free to open PRs with improvements.
 
 ## Installation
