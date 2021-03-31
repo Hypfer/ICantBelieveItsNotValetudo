@@ -1,6 +1,6 @@
 {
   "name": "i-cant-believe-its-not-valetudo",
-  "version": "2021.2.1",
+  "version": "2021.3.0",
   "dependencies": {
     "async": "^3.2.0",
     "canvas": "^2.7.0",
