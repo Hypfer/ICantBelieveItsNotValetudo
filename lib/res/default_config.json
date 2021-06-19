@@ -9,6 +9,12 @@
       "floor": "#0076ff",
       "obstacle": "#52aeff",
       "path": "#ffffff"
+    },
+    "fixedCharger": {
+      "enabled": false,
+      "chargerMapPos": null,
+      "chargerCroppedPos": null,
+      "croppedSize": null
     }
   },
   "mqtt": {

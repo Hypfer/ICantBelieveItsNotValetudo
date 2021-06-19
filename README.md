@@ -89,6 +89,21 @@ interpolation.
 
 Rotating the map can be achieved by setting the `mapSettings.rotate` to the desired value.
 
+### Fixed charger
+
+If you'd like to always have the charger at a fixed location in the generated images you can
+tweak `mapSettings.fixedCharger`.
+
+First, set `enabled` to `true`, the other parameters to `null` and run the program.
+It will calculate the remaining parameters and print them to the console. You can copy them
+into the config file.
+
+If you don't copy them the charger will still stay at a fixed location, but only as long as
+the program keeps running. New values will be calculated on each startup.
+
+Note that the parameters are not relative to the final (scaled) image, but to the original
+raw map resolution.
+
 ### Colors
 
 The map is rendered using a blueish color map by default. The colors
