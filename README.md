@@ -48,7 +48,7 @@ A basic example configuration would look like this:
         "autoconfPrefix": "homeassistant",
         "broker_url": "mqtt://user:pass@foobar.example",
         "caPath": "",
-        "mapDataTopic": "valetudo/rockrobo/map_data",
+        "mapDataTopic": "valetudo/robot/MapData/map-data",
         "minMillisecondsBetweenMapUpdates": 10000,
         "publishMapImage": true
     },
