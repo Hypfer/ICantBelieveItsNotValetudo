@@ -63,6 +63,8 @@ A basic example configuration would look like this:
 If you set `webserver.enabled` to `true`, the map PNG will be available
 at `http://host:port/api/map/image` so you can display a map with any
 home automation software that allows fetching images from a URL.
+The map will also be available as base64-encoded string at 
+`http://host:port/api/map/base64`.
 By default, the image data is published via MQTT to the topic set in
 `mqtt.mapDataTopic`.
 
