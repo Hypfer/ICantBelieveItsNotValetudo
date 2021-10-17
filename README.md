@@ -65,8 +65,7 @@ at `http://host:port/api/map/image` so you can display a map with any
 home automation software that allows fetching images from a URL.
 The map will also be available as base64-encoded string at 
 `http://host:port/api/map/base64`.
-By default, the image data is published via MQTT to the topic set in
-`mqtt.mapDataTopic`.
+By default, the image data is published via MQTT to `mqtt.topicPrefix/mqtt.identifier/MapData/map`.
 
 
 ## Advanced Map Configuration
