@@ -135,3 +135,26 @@ Since new Valetudo maps are using segments, new field in config has been added (
 
 }
 ```
+#### Cropping and padding
+
+You can crop the image or add padding to better fit your use case. the cropping is applied first so you can also remove artefacts that can appear with windows or other reflective surfaces.
+
+
+``` json
+{
+
+    "mapSettings": {
+        "crop_top": 695,
+        "crop_bottom": 0,
+        "crop_left": 150,
+        "crop_right": 200,
+        "padding_top": 150,
+        "padding_bottom": 150,
+        "padding_right": 50
+        "padding_left": 50
+    },
+    "mqtt" : {
+    }
+
+}
+```
