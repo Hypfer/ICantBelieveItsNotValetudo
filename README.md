@@ -50,7 +50,8 @@ A basic example configuration would look like this:
         "caPath": "",
         "mapDataTopic": "valetudo/robot/MapData/map-data",
         "minMillisecondsBetweenMapUpdates": 10000,
-        "publishMapImage": true
+        "publishMapImage": true,
+        "publishAsBase64": false
     },
     "webserver": {
         "enabled": false,
@@ -59,13 +60,13 @@ A basic example configuration would look like this:
 }
 ```
 
-## Integration with FHEM, ioBroker, etc
+## Integration with FHEM, ioBroker, openHAB etc
 If you set `webserver.enabled` to `true`, the map PNG will be available
 at `http://host:port/api/map/image` so you can display a map with any
 home automation software that allows fetching images from a URL.
 The map will also be available as base64-encoded string at 
 `http://host:port/api/map/base64`.
-By default, the image data is published via MQTT to `mqtt.topicPrefix/mqtt.identifier/MapData/map`.
+By default, the image data is published via MQTT to `mqtt.topicPrefix/mqtt.identifier/MapData/map`, if `mqtt.publishAsBase64` is set to `true`, the image data is published as base64-encoded string (a.e. for openHAB).
 
 
 ## Advanced Map Configuration

@@ -19,7 +19,8 @@
     "caPath": "",
     "mapDataTopic": "valetudo/robot/MapData/map-data",
     "minMillisecondsBetweenMapUpdates": 10000,
-    "publishMapImage": true
+    "publishMapImage": true,
+    "publishAsBase64" : false
   },
   "webserver": {
     "enabled": false,

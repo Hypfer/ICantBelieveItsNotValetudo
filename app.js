@@ -24,6 +24,7 @@ if (conf.get("mqtt")) {
         mapDataTopic: conf.get("mqtt").mapDataTopic,
         minMillisecondsBetweenMapUpdates: conf.get("mqtt").minMillisecondsBetweenMapUpdates,
         publishMapImage: conf.get("mqtt").publishMapImage,
+        publishAsBase64: conf.get("mqtt").publishAsBase64,
 
         mapData: mapData
     });
