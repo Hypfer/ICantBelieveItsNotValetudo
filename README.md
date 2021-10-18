@@ -2,7 +2,7 @@
     <a href="https://github.com/Hypfer/Valetudo">
         <img src="https://github.com/Hypfer/Valetudo/blob/master/assets/logo/valetudo_logo_with_name.svg" width="800" alt="valetudo">
     </a>
-    <p align="center"><h2>I can't belive it's not Valetudo</h2></p>
+    <p align="center"><h2>I can't believe it's not Valetudo</h2></p>
 </div>
 
 This is a simple map generation companion service for
@@ -17,7 +17,7 @@ Feel free to open PRs with improvements.
 
 ## Installation
 
-*I can't belive it's not Valetudo* is built with JavaScript and requires
+*I can't believe it's not Valetudo* is built with JavaScript and requires
 Node.js and npm to run.
 
 Installation is easy: Clone this repository and run `npm install` to
@@ -27,7 +27,7 @@ a dockerfile for you.
 
 ## Configuration
 
-To configure *I can't belive it's not Valetudo*, create a file called
+To configure *I can't believe it's not Valetudo*, create a file called
 `config.json` in the working directory. You can also run `npm start` to
 automatically create a default configuration file. If you are running in
 docker, map the configuration file to `/app/config.json` .
