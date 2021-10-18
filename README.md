@@ -151,7 +151,7 @@ You can crop the image or add padding to better fit your use case. the cropping 
         "crop_right": 200,
         "padding_top": 150,
         "padding_bottom": 150,
-        "padding_right": 50
+        "padding_right": 50,
         "padding_left": 50
     },
     "mqtt" : {
