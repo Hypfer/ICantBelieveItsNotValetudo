@@ -4,38 +4,43 @@ const MqttClient = require("./lib/MqttClient");
 const WebServer = require("./lib/Webserver");
 
 const conf = new Configuration();
-const mapData = {};
+const mapData = [];
 
 try {
-    Logger.LogLevel = conf.get("logLevel");
+    Logger.LogLevel = conf.get(0, "logLevel");
 } catch (e) {
     Logger.error("Initialising Logger: " + e);
 }
 
-if (conf.get("mqtt")) {
-    // eslint-disable-next-line no-unused-vars
-    const mqttClient = new MqttClient({
-        brokerURL: conf.get("mqtt").broker_url,
-        caPath: conf.get("mqtt").caPath,
-        identifier: conf.get("mqtt").identifier,
-        topicPrefix: conf.get("mqtt").topicPrefix,
-        autoconfPrefix: conf.get("mqtt").autoconfPrefix,
-        mapSettings: conf.get("mapSettings"),
-        mapDataTopic: conf.get("mqtt").mapDataTopic,
-        minMillisecondsBetweenMapUpdates: conf.get("mqtt").minMillisecondsBetweenMapUpdates,
-        publishMapImage: conf.get("mqtt").publishMapImage,
-        publishAsBase64: conf.get("mqtt").publishAsBase64,
+for (var i = 0; i < conf.getConfigCount(); i++) {
+    mapData.push({});
 
-        mapData: mapData
-    });
-
-    if (conf.get("webserver") && conf.get("webserver").enabled === true) {
+    if (conf.get(i, "mqtt")) {
         // eslint-disable-next-line no-unused-vars
-        const webServer = new WebServer({
-            port: conf.get("webserver").port,
-            mapData: mapData
+        const mqttClient = new MqttClient({
+            brokerURL: conf.get(i, "mqtt").broker_url,
+            caPath: conf.get(i, "mqtt").caPath,
+            identifier: conf.get(i, "mqtt").identifier,
+            topicPrefix: conf.get(i, "mqtt").topicPrefix,
+            autoconfPrefix: conf.get(i, "mqtt").autoconfPrefix,
+            mapSettings: conf.get(i, "mapSettings"),
+            mapDataTopic: conf.get(i, "mqtt").mapDataTopic,
+            minMillisecondsBetweenMapUpdates: conf.get(i, "mqtt").minMillisecondsBetweenMapUpdates,
+            publishMapImage: conf.get(i, "mqtt").publishMapImage,
+            publishAsBase64: conf.get(i, "mqtt").publishAsBase64,
+
+            mapData: mapData[i]
         });
+
+        if (conf.get(i, "webserver") && conf.get(i, "webserver").enabled === true) {
+            // eslint-disable-next-line no-unused-vars
+            const webServer = new WebServer({
+                port: conf.get(i, "webserver").port,
+                mapData: mapData[i]
+            });
+        }
+    } else {
+        Logger.error("Missing configuration.mqtt!");
     }
-} else {
-    Logger.error("Missing configuration.mqtt!");
+
 }
