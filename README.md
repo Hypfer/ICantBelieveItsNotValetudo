@@ -15,6 +15,19 @@ PNG image via MQTT.
 
 Feel free to open PRs with improvements.
 
+## Important note
+
+ICBINV sucks. I am aware of that. You should be too.<br/>
+It is hard to use, it performs badly and it is also not required in many setups.
+
+If you're using Home Assistant, you only need something like this if you want to send the map image somewhere. (e.g. a Telegram Bot)<br/>
+For that, however, it would be a cleaner solution to have a custom component, which renders the map data to a camera entity,
+as that would eliminate the mqtt detour, the need for a docker container etc., while being much easier to use with multiple robots.
+
+For non-homeassistant-users something like ICBINV is probably still required.<br/>
+A rewrite won't hurt though. Especially since it currently depends on a native dependency which is always just painful.
+
+
 ## Installation
 
 *I can't believe it's not Valetudo* is built with JavaScript and requires
