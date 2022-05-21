@@ -4,7 +4,15 @@ const MqttClient = require("./lib/MqttClient");
 const WebServer = require("./lib/Webserver");
 
 const conf = new Configuration();
-const mapData = {};
+/*
+    This is a global variable because we need some way of transferring the data received via mqtt to the webserver
+    without connecting those two directly
+ */
+const mapData = {
+    raw: undefined,
+    img: undefined,
+    base64: undefined
+};
 
 try {
     Logger.LogLevel = conf.get("logLevel");
