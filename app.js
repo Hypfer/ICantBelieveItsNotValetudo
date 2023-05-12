@@ -24,6 +24,7 @@ if (conf.get("mqtt")) {
     // eslint-disable-next-line no-unused-vars
     const mqttClient = new MqttClient({
         brokerURL: conf.get("mqtt").broker_url,
+        clientId: conf.get("mqtt").clientId,
         caPath: conf.get("mqtt").caPath,
         identifier: conf.get("mqtt").identifier,
         topicPrefix: conf.get("mqtt").topicPrefix,

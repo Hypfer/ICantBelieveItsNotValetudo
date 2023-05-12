@@ -16,6 +16,7 @@
     "topicPrefix": "valetudo",
     "autoconfPrefix": "homeassistant",
     "broker_url": "mqtt://user:pass@foobar.example",
+    "clientId": "",
     "caPath": "",
     "mapDataTopic": "valetudo/robot/MapData/map-data",
     "minMillisecondsBetweenMapUpdates": 10000,
