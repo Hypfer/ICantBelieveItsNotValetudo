@@ -1,6 +1,6 @@
 {
   "name": "i-cant-believe-its-not-valetudo",
-  "version": "2022.05.0",
+  "version": "2023.08.0",
   "dependencies": {
     "@napi-rs/canvas": "0.1.21",
     "compression": "1.7.4",
