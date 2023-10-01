@@ -5,6 +5,13 @@
     <p align="center"><h2>I can't believe it's not Valetudo</h2></p>
 </div>
 
+# This repository is archived
+
+Head over to [https://github.com/erkexzcx/valetudopng](https://github.com/erkexzcx/valetudopng) for its successor
+
+
+## Prior readme
+
 ICBINV is a companion service for Valetudo that renders ValetudoMap map data to raster graphics.
 
 Incoming ValetudoMap Data is received via MQTT.
