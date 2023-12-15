@@ -57,6 +57,8 @@ You can also run `npm start` to automatically create a default configuration fil
 
 If you are running in docker, map the configuration file to `/app/config.json` .
 
+The robot has to publish the map data via mqtt - so enusre `Provide map data` is enabled on your robots mqtt config.
+
 ## Integration with FHEM, ioBroker, openHAB etc
 
 Enabling the webserver in the configuration file will allow you to fetch the latest rendered map image via `http://host:port/api/map/image`.<br/>
